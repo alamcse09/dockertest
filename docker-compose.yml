@@ -1,0 +1,23 @@
+version: "3.2"
+services:
+  myqsldb:
+    image: mysql:8
+    networks:
+      - test-net
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE = test
+    volumes:
+      - mysql-data:/var/lib/mysql
+  my-app:
+    image: test:2.0
+    ports:
+      - "8088:8080"
+    networks:
+      - test-net
+    depends_on:
+      - mysqldb
+networks:
+  test-net:
+volumes:
+  mysql-data:
