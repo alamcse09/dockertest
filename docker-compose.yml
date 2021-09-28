@@ -1,22 +1,24 @@
-version: "3.2"
+version: "3.5"
 services:
-  myqsldb:
-    image: mysql:8
-    networks:
-      - test-net
-    environment:
-      - MYSQL_ROOT_PASSWORD=1234
-      - MYSQL_DATABASE = test
-    volumes:
-      - mysql-data:/var/lib/mysql
-  my-app:
-    image: test:2.0
+  testapp:
+    image: alamcse09/test:2.1
     ports:
       - "8088:8080"
     networks:
       - test-net
     depends_on:
       - mysqldb
+    volumes:
+      - E://worklog/log/docker:/usr/local/pool
+  mysqldb:
+    image: mysql:8
+    networks:
+      - test-net
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=test
+    volumes:
+      - mysql-data:/var/lib/mysql
 networks:
   test-net:
 volumes:
